@@ -1,0 +1,666 @@
+[
+    {
+        "id": "ef569b7ea9aa6a0c",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "715a8bc79fd1cb37",
+        "type": "ui_led",
+        "z": "ef569b7ea9aa6a0c",
+        "order": 1,
+        "group": "f12a1a423c97a420",
+        "width": 4,
+        "height": 4,
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#008000",
+                "value": "ON",
+                "valueType": "str"
+            },
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 390,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c8000ad8be4d1cb5",
+        "type": "mqtt in",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "",
+        "topic": "utelvt/sensor/huella/acceso/led",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e9638f6501781283",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 160,
+        "wires": [
+            [
+                "715a8bc79fd1cb37",
+                "e7d3c6790de78e0f"
+            ]
+        ]
+    },
+    {
+        "id": "01e448ddabccdd50",
+        "type": "ui_text_input",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "# de Huella",
+        "label": "# de Huella",
+        "tooltip": "",
+        "group": "8bf1b10f922a5f01",
+        "order": 1,
+        "width": 2,
+        "height": 1,
+        "passthru": true,
+        "mode": "number",
+        "delay": "300",
+        "topic": "utelvt/sensor/huella/registro",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 110,
+        "y": 360,
+        "wires": [
+            [
+                "2a223a6adab7c96c"
+            ]
+        ]
+    },
+    {
+        "id": "70eec1f49c0caff1",
+        "type": "mqtt out",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "",
+        "topic": "utelvt/sensor/huella/registro",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e9638f6501781283",
+        "x": 540,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "6be00cb390d46ef7",
+        "type": "ui_button",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "Envio",
+        "group": "8bf1b10f922a5f01",
+        "order": 3,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "Registrar Huella",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "utelvt/sensor/huella/registro",
+        "topicType": "msg",
+        "x": 90,
+        "y": 400,
+        "wires": [
+            [
+                "f201ad27f6f0a3d7"
+            ]
+        ]
+    },
+    {
+        "id": "f201ad27f6f0a3d7",
+        "type": "function",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "Envio de # de huella",
+        "func": "let id = global.get(\"fingerId\") || 0;\nif (!id) {\n    node.warn(\"No se ha ingresado un ID de huella.\");\n    return null;\n}\nmsg.payload = id;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 400,
+        "wires": [
+            [
+                "70eec1f49c0caff1"
+            ]
+        ]
+    },
+    {
+        "id": "cb275d70d38c05a3",
+        "type": "mqtt out",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "",
+        "topic": "utelvt/sensor/huella/manual",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e9638f6501781283",
+        "x": 360,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "df22262086517354",
+        "type": "ui_button",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "",
+        "group": "b03156b0326dc4e4",
+        "order": 2,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "ABRIR",
+        "tooltip": "",
+        "color": "white",
+        "bgcolor": "green",
+        "className": "",
+        "icon": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "topic": "utelvt/sensor/huella/sensor",
+        "topicType": "msg",
+        "x": 90,
+        "y": 40,
+        "wires": [
+            [
+                "cb275d70d38c05a3"
+            ]
+        ]
+    },
+    {
+        "id": "6f4f256a3a983c75",
+        "type": "mqtt in",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "",
+        "topic": "utelvt/sensor/huella/registro/led",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e9638f6501781283",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 520,
+        "wires": [
+            [
+                "8ef2f28a4fd79808"
+            ]
+        ]
+    },
+    {
+        "id": "2a223a6adab7c96c",
+        "type": "function",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "Guardar # de Huella",
+        "func": "global.set(\"fingerId\", msg.payload);\nreturn null; // No necesitamos continuar el flujo aquí",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8ef2f28a4fd79808",
+        "type": "ui_led",
+        "z": "ef569b7ea9aa6a0c",
+        "order": 5,
+        "group": "8bf1b10f922a5f01",
+        "width": 1,
+        "height": 1,
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "center",
+        "colorForValue": [
+            {
+                "color": "#0000ff",
+                "value": "ON",
+                "valueType": "str"
+            },
+            {
+                "color": "#808080",
+                "value": "OFF",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 390,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "3f4a7a1abf878c40",
+        "type": "ui_text",
+        "z": "ef569b7ea9aa6a0c",
+        "group": "8bf1b10f922a5f01",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Salida: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "style": true,
+        "font": "Lucida Sans Unicode,Lucida Grande,sans-serif",
+        "fontSize": "20",
+        "color": "#ffffff",
+        "x": 390,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "067d435b0b886f3a",
+        "type": "mqtt in",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "",
+        "topic": "utelvt/sensor/huella/registro",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e9638f6501781283",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 460,
+        "wires": [
+            [
+                "3f4a7a1abf878c40"
+            ]
+        ]
+    },
+    {
+        "id": "f4bd2c319fe23ca0",
+        "type": "ui_table",
+        "z": "ef569b7ea9aa6a0c",
+        "group": "78a8f8aeee485225",
+        "name": "",
+        "order": 1,
+        "width": 8,
+        "height": 8,
+        "columns": [
+            {
+                "field": "Fecha",
+                "title": "Fecha",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "Hora",
+                "title": "Hora",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "Usuario",
+                "title": "Usuario",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 550,
+        "y": 220,
+        "wires": [],
+        "inputLabels": [
+            "Prueba"
+        ]
+    },
+    {
+        "id": "4e5c5f180fb25b68",
+        "type": "function",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "function 3",
+        "func": "msg.payload = [\n    {\n        Fecha : \"HOY\",\n        Hora : \"ahorita\",\n        Usuario : \"Usuario\"\n    },\n    {\n        Fecha : \"HOY\",\n        Hora : \"ahorita\",\n        Usuario : \"Usuario\"\n    },\n    {\n        Fecha : \"HOY\",\n        Hora : \"ahorita\",\n        Usuario : \"Usuario\"\n    },\n    {\n        Fecha : \"HOY\",\n        Hora : \"ahorita\",\n        Usuario : \"Usuario\"\n    },\n    {\n        Fecha : \"HOY\",\n        Hora : \"ahorita\",\n        Usuario : \"Usuario\"\n    },\n    {\n        Fecha : \"HOY\",\n        Hora : \"ahorita\",\n        Usuario : \"Usuario\"\n    }\n]\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 220,
+        "wires": [
+            [
+                "f4bd2c319fe23ca0"
+            ]
+        ]
+    },
+    {
+        "id": "e7d3c6790de78e0f",
+        "type": "ui_media",
+        "z": "ef569b7ea9aa6a0c",
+        "group": "f12a1a423c97a420",
+        "name": "",
+        "width": 4,
+        "height": 4,
+        "order": 2,
+        "category": "foto",
+        "file": "choises.jpg",
+        "layout": "adjust",
+        "showcontrols": true,
+        "loop": true,
+        "onstart": false,
+        "scope": "local",
+        "tooltip": "",
+        "x": 530,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0683d002ec6a5f35",
+        "type": "function",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "function 4",
+        "func": "// Si el payload viene como string (desde MQTT), lo convertimos a objeto\nlet data = typeof msg.payload === 'string' ? JSON.parse(msg.payload) : msg.payload;\n\n// Obtenemos fecha y hora actuales\nlet fecha = new Date();\nlet dia = fecha.toLocaleDateString(\"es-EC\");\nlet hora = fecha.toLocaleTimeString(\"es-EC\");\n\n// Creamos el objeto que espera el Google Script\nmsg.payload = {\n    id: data.id || \"desconocido\",\n    nombre: data.nombre || \"Anónimo\",\n    tipo: data.tipo || \"desconocido\",\n    fecha: dia,\n    hora: hora\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 280,
+        "wires": [
+            [
+                "7cb64b172f57cc7f"
+            ]
+        ]
+    },
+    {
+        "id": "666d591a761b1f1e",
+        "type": "mqtt in",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "",
+        "topic": "utelvt/sensor/huella/acceso/ON",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e9638f6501781283",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "4e5c5f180fb25b68",
+                "0683d002ec6a5f35"
+            ]
+        ]
+    },
+    {
+        "id": "c8c2a4d54a8b65c4",
+        "type": "ui_button",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "",
+        "group": "b03156b0326dc4e4",
+        "order": 4,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "BLOQUEAR",
+        "tooltip": "",
+        "color": "white",
+        "bgcolor": "red",
+        "className": "",
+        "icon": "",
+        "payload": "BLOCK",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "cb275d70d38c05a3"
+            ]
+        ]
+    },
+    {
+        "id": "abea259662058b33",
+        "type": "file",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "",
+        "filename": "",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 700,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7cb64b172f57cc7f",
+        "type": "http request",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://script.google.com/macros/s/AKfycbze01IzZm32W9rFRdnQmQgvygf_H8OwWabQARaKDeiTjWHL9DjD_PbNpfDkRk9d_Jjxeg/exec",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "application/json",
+                "valueValue": ""
+            }
+        ],
+        "x": 570,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e432e8140f5e3001",
+        "type": "ui_spacer",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "spacer",
+        "group": "b03156b0326dc4e4",
+        "order": 6,
+        "width": "8",
+        "height": "1"
+    },
+    {
+        "id": "9b1cf4d5cff4ff7d",
+        "type": "ui_spacer",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "spacer",
+        "group": "b03156b0326dc4e4",
+        "order": 3,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "57d4a1cfdf85fd34",
+        "type": "ui_spacer",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "spacer",
+        "group": "b03156b0326dc4e4",
+        "order": 5,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "d7eb1efde9286c0f",
+        "type": "ui_spacer",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "spacer",
+        "group": "8bf1b10f922a5f01",
+        "order": 2,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "4e873c1115f768d5",
+        "type": "ui_spacer",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "spacer",
+        "group": "8bf1b10f922a5f01",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "0c0d9c8445282a94",
+        "type": "ui_spacer",
+        "z": "ef569b7ea9aa6a0c",
+        "name": "spacer",
+        "group": "b03156b0326dc4e4",
+        "order": 1,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "f12a1a423c97a420",
+        "type": "ui_group",
+        "name": "Cerradura",
+        "tab": "c24e68c08b59fb84",
+        "order": 3,
+        "disp": true,
+        "width": 8,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e9638f6501781283",
+        "type": "mqtt-broker",
+        "name": "Mosquitto",
+        "broker": "test.mosquitto.org",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "8bf1b10f922a5f01",
+        "type": "ui_group",
+        "name": "Registro de Huella",
+        "tab": "c24e68c08b59fb84",
+        "order": 2,
+        "disp": true,
+        "width": 8,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b03156b0326dc4e4",
+        "type": "ui_group",
+        "name": "Control de Cerradura",
+        "tab": "c24e68c08b59fb84",
+        "order": 1,
+        "disp": true,
+        "width": 8,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "78a8f8aeee485225",
+        "type": "ui_group",
+        "name": "Historial de acceso",
+        "tab": "c24e68c08b59fb84",
+        "order": 4,
+        "disp": true,
+        "width": 8,
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "c24e68c08b59fb84",
+        "type": "ui_tab",
+        "name": "Control de Acceso",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
