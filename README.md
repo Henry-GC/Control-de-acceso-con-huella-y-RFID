@@ -209,9 +209,9 @@ Puedes usar la configuración por defecto, pero para mejor seguridad se recomien
 
 ## 🧑‍💻 Autor
 
-Desarrollado por [**Henry Clemente González Cevallos**](https://github.com/tu_usuario)\
+Desarrollado por [**HenryGC**](https://github.com/Henry-GC)\
 📍 Esmeraldas, Ecuador\
-💬 Contacto: [[tu\_email@ejemplo.com](mailto\:tu_email@ejemplo.com)]
+💬 Contacto: [contacto@henrygc.com](mailto:contacto@henrygc.com)
 
 ---
 
